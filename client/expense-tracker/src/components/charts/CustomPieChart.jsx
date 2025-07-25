@@ -5,8 +5,11 @@ import {
     Cell,
     Tooltip,ResponsiveContainer,Legend
 } from "recharts"
+import CustomToolTip from './CustomToolTip';
+import CustomLegend from './CustomLegend';
 
 const CustomPieChart = ({data,label,totalAmount,colors,showTextAnchor}) => {
+    console.log("Colors",colors);
   return (
    <ResponsiveContainer width="100%" height={380}>
     <PieChart>
@@ -21,18 +24,20 @@ const CustomPieChart = ({data,label,totalAmount,colors,showTextAnchor}) => {
     labelLine={false}
     >
     {data.map((entry, index) => {
-        <Cell key={`cell-${index}`} fill={colors[index % colors.length()]} />
+        return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
     })}
     </Pie>
-    <Tooltip/>
-    <Legend/>
+    <Tooltip
+    content={<CustomToolTip />}
+    />
+    <Legend content={<CustomLegend/>}/>
 
     {showTextAnchor && (
         <>
         <text
         x="50%"
         y="50%"
-        day={-25}
+        dy={-25}
         textAnchor='middle'
         fill="#666"
         fontSize="14px"
