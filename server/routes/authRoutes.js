@@ -1,23 +1,25 @@
-const express = require('express');
-const { protect } = require('../middlewares/authMiddleware');
+const express = require("express");
+const { protect } = require("../middlewares/authMiddleware");
 const {
-    registerUser,
-    loginUser,
-    getUserInfo,
-} = require('../controllers/authController');
-const upload = require('../middlewares/uploadMiddleware');
+  registerUser,
+  loginUser,
+  getUserInfo,
+} = require("../controllers/authController");
+const upload = require("../middlewares/uploadMiddleware");
 const router = express.Router();
 
-router.post('/register', registerUser);
-router.post('/login', loginUser);
-router.get('/getUser',protect, getUserInfo);
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get("/getUser", protect, getUserInfo);
 
-router.post("/upload-images",upload.single("image"), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ message: "No file uploaded" });
-    }
-    const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-    console.log("Image uploaded successfully:", imageUrl);
-    res.status(200).json({ imageUrl });
+router.post("/upload-images", upload.single("image"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+  const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${
+    req.file.filename
+  }`;
+  console.log("Image uploaded successfully:", imageUrl);
+  res.status(200).json({ imageUrl });
 });
 module.exports = router;
