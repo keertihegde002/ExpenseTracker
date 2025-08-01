@@ -58,61 +58,59 @@ const SignUp = () => {
         navigate("/dashboard");
       }
     } catch (err) {
-      if (err.response && err.response.data.message) {
-        setError(
-          err.response.data.message || "An error occurred during signup"
-        );
-      } else {
-        setError("Network error, please try again later");
-      }
+      setError(
+        err.response?.data?.message || "Network error, please try again later"
+      );
     }
   };
 
   return (
     <AuthLayout>
-      <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
-        {/* <div className='w-full max-w-md mx-auto h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center'> */}
-
-        <h3 className="text-xl font-semibold text-black">Create an Account</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
+      <div className="bg-white p-8 rounded-xl shadow-xl border border-gray-100 w-full max-w-md">
+        <h3 className="text-2xl font-semibold text-gray-900 mb-1">Create an Account</h3>
+        <p className="text-sm text-gray-600 mb-6">
           Join us today by entering your details below
         </p>
-        <form onSubmit={handleSignUp}>
+
+        <form onSubmit={handleSignUp} className="space-y-5">
           <ProfilePhotoSelector
             image={profilePicture}
             setImage={setProfilePicture}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
-              value={fullName}
-              label="Full Name"
-              onChange={(event) => setFullName(event.target.value)}
-              placeholder="John"
-              type="text"
-            />
-            <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              label="Email Address"
-              placeholder="name@example.com"
-              type="text"
-            />
-            <Input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              label="Password"
-              placeholder=""
-              type="password"
-            />
-          </div>
+          <Input
+            value={fullName}
+            label="Full Name"
+            onChange={(event) => setFullName(event.target.value)}
+            placeholder="John"
+            type="text"
+          />
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            label="Email Address"
+            placeholder="name@example.com"
+            type="email"
+          />
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            label="Password"
+            placeholder="Create a strong password"
+            type="password"
+          />
 
-          {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
-          <button type="submit" className="btn-primary">
+          {error && <p className="text-red-500 text-sm -mt-2">{error}</p>}
+
+          <button
+            type="submit"
+            className="w-full bg-violet-600 hover:bg-violet-700 text-white font-medium py-3 rounded-lg transition-all"
+          >
             Sign Up
           </button>
-          <p className="text-[13px] text-slate-800 mt-3">
+
+          <p className="text-sm text-gray-700 mt-4 text-center">
             Already have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/login">
+            <Link to="/login" className="text-violet-600 font-medium hover:underline">
               Login
             </Link>
           </p>
